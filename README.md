@@ -1,14 +1,14 @@
-### cli commands:
+### 🚧 cli commands:
 
 These commands should be executed inside your new project folder.
 
-- kick (this will prompt your for several questions)
+- create (this will prompt you with the following questions)
 
-  - template: JS or TS
+  - template: CRA TS, CRA JS, lib TS, lib JS, Utils TS
   - git init: y/n
   - install dependencies: y/n
 
 - create --skip (this will use default settings)
-  - template: JS
+  - template: CRA TS
   - init git repo
-  - dependencies installed.
+  - dependencies automatically installed

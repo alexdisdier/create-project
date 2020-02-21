@@ -45,7 +45,7 @@ export async function createProject(options) {
   const templateDir = path.resolve(
     new URL(currentFileUrl).pathname,
     ROUTE_TEMPLATES,
-    options.template.toLowerCase()
+    options.template.replace(' ', '-').toLowerCase()
   );
   options.templateDirectory = templateDir;
 

@@ -4,7 +4,7 @@ import { createProject }  from './main';
 
 const DEFAULT_PKG_INSTALL = true;
 const DEFAULT_GIT_INIT = true;
-const DEFAULT_TEMPLATE = 'JavaScript';
+const DEFAULT_TEMPLATE = 'CRA TS';
 
 function parseArgumentsIntoOptions(rawArgs) {
   const args = arg({
@@ -49,7 +49,7 @@ async function promptForMissingOptions(options) {
       type: 'list',
       name: 'template',
       message: 'Please choose which project template to use',
-      choices: ['JavaScript', 'TypeScript'],
+      choices: ['CRA TS', 'CRA JS', 'Lib TS', 'Lib JS', 'Utils TS'],
       default: DEFAULT_TEMPLATE
     })
   }

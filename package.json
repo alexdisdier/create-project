@@ -22,6 +22,10 @@
     "templates/"
   ],
   "author": "Alex Disdier",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexdisdier/create-project"
+  },
   "dependencies": {
     "arg": "^4.1.3",
     "chalk": "^3.0.0",
