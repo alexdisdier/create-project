@@ -4,9 +4,8 @@ import ncp from 'ncp';
 import path from 'path';
 import { promisify } from 'util';
 import execa from 'execa';
-import listr from 'listr';
 import Listr from 'listr';
-// need a package to automate installing dependencies
+import { projectInstall } from './projectInstall';
 
 const ROUTE_TEMPLATES = '../../templates';
 
@@ -54,12 +53,9 @@ export async function createProject(options) {
     // try to read at that template directory
     await access(templateDir, fs.constants.R_OK);
   } catch (err) {
-    console.error('% Invalid template name', chalk.red.bold('ERROR'));
+    console.error(`% Invalid template name`, chalk.red.bold('ERROR'));
     process.exit(1)
   }
-
-  // NEED TO CREATE A FUNCTION TO INSTALL DEPENDENCIES FROM PACKAGE.JSON
-  const projectInstall = () => {}
 
   const tasks = new Listr([
     {
@@ -69,14 +65,14 @@ export async function createProject(options) {
     {
       title: 'Initialize git', 
       task: () => initGit(options), 
-      enabled: () => options.git
+      skip: () => !options.git ? 'Pass --git to automatically initialize a git repository' : undefined
     },
     {
       title: 'Install dependencies',
       task: () => projectInstall({
         cwd: options.targetDirectory,
       }),
-      skip: () => !options.runInstall ? 'Pass --install to automatically install dependencies' : undefined
+      skip: () => !options.pkgInstall ? 'Pass --install to automatically install dependencies' : undefined
     }
   ]);
 

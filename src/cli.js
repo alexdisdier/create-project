@@ -2,38 +2,41 @@ import arg from 'arg';
 import inquirer from 'inquirer';
 import { createProject }  from './main';
 
-const DEFAULT_GIT_INIT = false;
+const DEFAULT_PKG_INSTALL = true;
+const DEFAULT_GIT_INIT = true;
 const DEFAULT_TEMPLATE = 'JavaScript';
 
 function parseArgumentsIntoOptions(rawArgs) {
   const args = arg({
     '--git': Boolean,
-    '--yes': Boolean,
+    '--skip': Boolean,
     '--install': Boolean, 
     '-g': '--git',
-    '-y': '--yes',
+    '-s': '--skip',
     '-i': '--install'
   },{
     argv: rawArgs.slice(2),
 
   });
   return {
-    skipPrompts: args['--yes'] || false,
-    git: args['--git'] || false,
+    skipPrompts: args['--skip'],
+    git: args['--git'],
     template: args._[0],
-    runInstall: args['--install'] || false
+    pkgInstall: args['--install']
   }
 }
 
 async function promptForMissingOptions(options) {
   
-  // If user enter --yes as first argument to skip prompt
+  // If user enter --skip as first argument to skip prompt
   // We set the template to default if no template were entered
-  // or if the user enter templateName --yes, we'll set to templateName
+  // or if the user enter templateName --skip, we'll set to templateName
   if (options.skipPrompts) {
     return {
       ...options,
-      template: options.template || DEFAULT_TEMPLATE
+      template: options.template || DEFAULT_TEMPLATE,
+      git: options.git || DEFAULT_GIT_INIT,
+      pkgInstall: options.pkgInstall || DEFAULT_PKG_INSTALL,
     }
   }
 
@@ -61,12 +64,22 @@ async function promptForMissingOptions(options) {
     })
   }
 
+  if (!options.pkgInstall) {
+    questions.push({
+      type: 'confirm',
+      name: 'pkgInstall', 
+      message: 'Would you like to install dependencies?',
+      default: DEFAULT_PKG_INSTALL
+    })
+  }
+
   // store our answers
   const answers = await inquirer.prompt(questions);
   return {
     ...options,
     template: options.template || answers.template,
-    git: options.git || answers.git
+    git: options.git || answers.git,
+    pkgInstall: options.pkgInstall || answers.pkgInstall
   }
 }
 

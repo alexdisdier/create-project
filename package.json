@@ -4,15 +4,22 @@
   "description": "A CLI to bootstrap my projects",
   "main": "src/index.js",
   "bin": {
-    "@alexdisdier/create-project": "bin/create-project",
-    "create-project": "bin/create-project"
+    "@alexdisdier/create": "bin/create",
+    "create": "bin/create"
   },
   "publishConfig": {
     "access": "public"
   },
   "keywords": [
     "cli",
-    "create-project"
+    "create-project",
+    "boilerplate",
+    "bootstrap"
+  ],
+  "files": [
+    "bin/",
+    "src/",
+    "templates/"
   ],
   "author": "Alex Disdier",
   "dependencies": {
