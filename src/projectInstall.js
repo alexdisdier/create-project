@@ -19,7 +19,7 @@ const { exec } = require("child_process");
  */
 
  export function projectInstall (path) {
-  exec(`npm i --prefix ${path.cwd}`, (error, stdout, stderr) => {
+  exec(`yarn install --prefix ${path.cwd}`, (error, stdout, stderr) => {
     if (error) {
         console.log(`error: ${error.message}`);
         return;
