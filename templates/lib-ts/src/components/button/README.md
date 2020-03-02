@@ -9,13 +9,13 @@ A component for handling user input. It is commonly used within a form.
 ##### Import
 
 ```js
-import { Button } from "react-helium";
+import { Button } from "your-library-name";
 ```
 
 ##### Usage
 
 ```jsx
-<Button onClick={() => "Do something"}>I am THE button</Button>
+<Button onClick={() => "Do something"}>I am a button</Button>
 ```
 
 ##### Required props
@@ -26,14 +26,9 @@ import { Button } from "react-helium";
 
 ##### Optional props
 
-| Name        | Type       | Default    | Description               |
-| ----------- | ---------- | ---------- | ------------------------- |
-| `onClick`   | `function` | `() => {}` |                           |
-| `primary`   | `boolean`  | `false`    |                           |
-| `secondary` | `boolean`  | `false`    |                           |
-| `warning`   | `boolean`  | `false`    |                           |
-| `round`     | `boolean`  | `false`    |                           |
-| `inverted`  | `boolean`  | `false`    |                           |
-| `disabled`  | `boolean`  | `false`    |                           |
-| `type`      | `string`   | `button`   |                           |
-| `color`     | `string`   | `button`   | `Either an Hex or a name` |
+| Name       | Type       | Default    | Description               |
+| ---------- | ---------- | ---------- | ------------------------- |
+| `onClick`  | `function` | `() => {}` |                           |
+| `disabled` | `boolean`  | `false`    |                           |
+| `type`     | `string`   | `button`   |                           |
+| `color`    | `string`   | `button`   | `Either an Hex or a name` |

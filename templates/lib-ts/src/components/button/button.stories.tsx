@@ -7,11 +7,17 @@ import {
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 
+import README from './README.md';
 import Button from '.';
 
 const stories = storiesOf('Button', module);
 
 stories.addDecorator(withKnobs);
+stories.addParameters({
+  readme: {
+    content: README
+  }
+});
 
 stories.add('default', () => {
 
@@ -23,7 +29,7 @@ stories.add('default', () => {
       color={text('Custom color', '')}
       disabled={boolean('Disabled', false)}
     >
-      {text('Label', 'I am THE button')}
+      {text('Label', 'I am a button')}
     </Button>
   );
 });

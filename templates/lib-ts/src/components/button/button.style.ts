@@ -2,11 +2,11 @@ import { createUseStyles } from 'react-jss';
 
 export default createUseStyles((theme: any) => ({
   root: {
-    color: ({ color }) => color || theme.primaryColor,
+    color: (props: { color: string; }) => props.color || theme.colorPrimary,
     backgroundColor: 'yellow',
     transition: '250ms',
     '&:hover': {
-      color: theme.secondaryColor
+      color: theme.colorSecondary
     },
     '&[disabled]': {
       opacity: 0.3
