@@ -63,7 +63,7 @@ async function promptForMissingOptions(options) {
   if (!options.targetDirectory) {
     questions.push({
       type: 'input',
-      name: 'project-name',
+      name: 'targetDirectory',
       message: 'Enter the name of your project',
       default: DEFAULT_TEMPLATE
     })
@@ -96,7 +96,6 @@ async function promptForMissingOptions(options) {
     targetDirectory: options.targetDirectory || answers.targetDirectory,
     git: options.git || answers.git,
     pkgInstall: options.pkgInstall || answers.pkgInstall,
-    // targetDirectory: '/' + options.targetDirectory
   }
 }
 
