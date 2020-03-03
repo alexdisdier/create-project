@@ -1,10 +1,12 @@
 import arg from 'arg';
+import fs from 'fs';
 import inquirer from 'inquirer';
 import { createProject }  from './main';
 
 const DEFAULT_PKG_INSTALL = true;
 const DEFAULT_GIT_INIT = true;
 const DEFAULT_TEMPLATE = 'CRA TS';
+const DEFAULT_PROJECT_NAME = 'new-project';
 
 function parseArgumentsIntoOptions(rawArgs) {
   const args = arg({
@@ -21,7 +23,8 @@ function parseArgumentsIntoOptions(rawArgs) {
   return {
     skipPrompts: args['--skip'],
     git: args['--git'],
-    template: args._[0],
+    template: args._[0], 
+    targetDirectory: args._[1], 
     pkgInstall: args['--install']
   }
 }
@@ -35,6 +38,7 @@ async function promptForMissingOptions(options) {
     return {
       ...options,
       template: options.template || DEFAULT_TEMPLATE,
+      targetDirectory: options.targetDirectory || DEFAULT_PROJECT_NAME,
       git: options.git || DEFAULT_GIT_INIT,
       pkgInstall: options.pkgInstall || DEFAULT_PKG_INSTALL,
     }
@@ -50,6 +54,17 @@ async function promptForMissingOptions(options) {
       name: 'template',
       message: 'Please choose which project template to use',
       choices: ['CRA TS', 'CRA JS', 'Lib TS', 'Lib JS', 'Utils TS'],
+      default: DEFAULT_TEMPLATE
+    })
+  }
+
+  // If the user does not skip prompt, we'll ask for the 
+  // project's name of choice
+  if (!options.targetDirectory) {
+    questions.push({
+      type: 'input',
+      name: 'project-name',
+      message: 'Enter the name of your project',
       default: DEFAULT_TEMPLATE
     })
   }
@@ -78,13 +93,27 @@ async function promptForMissingOptions(options) {
   return {
     ...options,
     template: options.template || answers.template,
+    targetDirectory: options.targetDirectory || answers.targetDirectory,
     git: options.git || answers.git,
-    pkgInstall: options.pkgInstall || answers.pkgInstall
+    pkgInstall: options.pkgInstall || answers.pkgInstall,
+    // targetDirectory: '/' + options.targetDirectory
   }
 }
+
+// const createDir = (dirPath) => {
+//   console.log(dirPath);
+//   fs.mkdirSync(process.cwd() + dirPath, { recursive: true }, (errors) => {
+//     if (error) {
+//       console.error('An error occured', error);
+//     } else {
+//       console.log('Your directory is made')
+//     }
+//   })
+// }
 
 export async function cli(args) {
   let options = parseArgumentsIntoOptions(args);
   options = await promptForMissingOptions(options)
+  // await createDir(options.targetDirectory);
   await createProject(options);
 }
