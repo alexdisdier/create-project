@@ -9,7 +9,6 @@ import { projectInstall } from './projectInstall';
 
 const ROUTE_TEMPLATES = '../../templates';
 
-
 const access = promisify(fs.access);
 
 // Copy the template file into the user destination folder
@@ -18,7 +17,7 @@ const copy = promisify(ncp);
 async function copyTemplateFiles(options) {
   return copy(options.templateDirectory, options.targetDirectory, {
     clobber: false
-  })
+  });
 }
 
 async function initGit(options) {
@@ -26,8 +25,8 @@ async function initGit(options) {
     cwd: options.targetDirectory
   });
 
-  if(result.failed) {
-    return Promise.reject(new Error('Failed to initialize Git'))
+  if (result.failed) {
+    return Promise.reject(new Error('Failed to initialize Git'));
   }
   return;
 }
@@ -38,7 +37,7 @@ export async function createProject(options) {
   options = {
     ...options,
     targetDirectory: options.targetDirectory || process.cwd()
-  }
+  };
 
   // set the template directory
   const currentFileUrl = import.meta.url;
@@ -54,25 +53,32 @@ export async function createProject(options) {
     await access(templateDir, fs.constants.R_OK);
   } catch (err) {
     console.error(`% Invalid template name`, chalk.red.bold('ERROR'));
-    process.exit(1)
+    process.exit(1);
   }
 
   const tasks = new Listr([
     {
-      title: 'Copy project files', 
+      title: 'Copy project files',
       task: () => copyTemplateFiles(options)
     },
     {
-      title: 'Initialize git', 
-      task: () => initGit(options), 
-      skip: () => !options.git ? 'Pass --git to automatically initialize a git repository' : undefined
+      title: 'Initialize git',
+      task: () => initGit(options),
+      skip: () =>
+        !options.git
+          ? 'Pass --git to automatically initialize a git repository'
+          : undefined
     },
     {
       title: 'Install dependencies',
-      task: () => projectInstall({
-        cwd: options.targetDirectory,
-      }),
-      skip: () => !options.pkgInstall ? 'Pass --install to automatically install dependencies' : undefined
+      task: () =>
+        projectInstall({
+          cwd: options.targetDirectory
+        }),
+      skip: () =>
+        !options.pkgInstall
+          ? 'Pass --install to automatically install dependencies'
+          : undefined
     }
   ]);
 

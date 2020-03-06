@@ -20,5 +20,5 @@ For now, the installation will use yarn.
 
   ```
   // e.g
-  npx @alexdisdier/create-project lib-ts my-new-library
+  npx @alexdisdier/create lib-ts my-new-library
   ```

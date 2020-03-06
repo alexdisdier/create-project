@@ -1,6 +1,6 @@
 {
   "name": "@alexdisdier/create-project",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A CLI to bootstrap my projects",
   "main": "src/index.js",
   "bin": {
