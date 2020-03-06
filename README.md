@@ -17,3 +17,8 @@ For now, the installation will use yarn.
   - new-project
   - init git repo
   - dependencies automatically installed
+
+  ```
+  // e.g
+  npx @alexdisdier/create-project lib-ts my-new-library
+  ```
