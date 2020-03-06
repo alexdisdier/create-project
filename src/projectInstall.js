@@ -4,6 +4,7 @@
  * The output from the execution is buffered, which means kept in memory, 
  * and is available for use in a callback.
  */
+import execa from 'execa';
 const { exec } = require("child_process");
 
 /**
@@ -19,7 +20,8 @@ const { exec } = require("child_process");
  */
 
  export function projectInstall (path) {
-  exec(`yarn install --prefix ${path.cwd}`, (error, stdout, stderr) => {
+   console.log(path)
+  exec(`cd ${path.cwd} && yarn install --prefix ${path.cwd}`, (error, stdout, stderr) => {
     if (error) {
         console.log(`error: ${error.message}`);
         return;
