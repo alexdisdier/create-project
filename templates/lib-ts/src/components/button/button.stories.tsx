@@ -4,6 +4,7 @@ import {
   withKnobs,
   text,
   boolean,
+  color
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 
@@ -26,7 +27,7 @@ stories.add('default', () => {
   return (
     <Button
       onClick={hasOnClick ? action('clicked') : undefined}
-      color={text('Custom color', '')}
+      color={color('Custom color', '')}
       disabled={boolean('Disabled', false)}
     >
       {text('Label', 'I am a button')}

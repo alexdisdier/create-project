@@ -2,22 +2,24 @@ import * as React from 'react';
 
 import useStyles from './button.style';
 
-type Props = {
+export type Props = {
   children: React.ReactNode;
   onClick?: () => void;
   color?: string;
   type?: string;
   disabled?: boolean;
+  dataTestId?: string;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button: React.FC<Props> = ({
   children,
   onClick = () => {},
   disabled = false,
-  type = 'button',
-  color = ''
+  type = 'submit',
+  color = '',
+  dataTestId = 'button'
 }) => {
-  const classes = useStyles({color});
+  const classes = useStyles({ color });
 
   const handleClick = () => {
     if (!disabled && onClick) onClick();
@@ -27,7 +29,8 @@ const Button: React.FC<Props> = ({
     className: classes.root,
     type,
     onClick: handleClick,
-    disabled
+    disabled,
+    'data-testid': dataTestId
   };
 
   return (
