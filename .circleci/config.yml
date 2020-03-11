@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   node: circleci/node@1.1.6
 jobs:
-  build-and-test:
+  build-and-publish:
     executor:
       name: node/default
     steps:
@@ -11,7 +11,14 @@ jobs:
           steps:
             - run: npm install
             - run: npm test
+            - run: npm run semantic-release || true
 workflows:
-    build-and-test:
-      jobs:
-        - build-and-test
+  build-and-publish:
+    jobs:
+      - build-and-publish:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              only:
+                - master

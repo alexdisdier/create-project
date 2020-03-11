@@ -4,7 +4,7 @@
 
 <hr>
 
-A component for handling user input. It is commonly used within a form.
+A component for triggering a user action. e.g: a submit button in a form
 
 ##### Import
 

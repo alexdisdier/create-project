@@ -1,3 +1,5 @@
+[![npm](https://img.shields.io/npm/v/create-project)](https://www.npmjs.com/package/@alexdisdier/create-project)
+
 ### 🚧 cli commands:
 
 These commands should be executed inside your new project folder.

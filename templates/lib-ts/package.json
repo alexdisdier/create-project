@@ -2,6 +2,14 @@
   "name": "your-library-name",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
+  "main": "lib/src/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -18,12 +26,17 @@
   },
   "scripts": {
     "start": "start-storybook -p 9009 -s public",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
     "lint": "eslint './src/**/*.{js,jsx,ts,tsx}'",
     "lint:fix": "eslint --fix './src/**/*.{js,jsx,ts,tsx}'",
+    "clean": "rm -rf ./lib",
+    "prebuild": "yarn clean",
+    "build": "tsc --build \"./tsconfig.json\"",
+    "copy-files": "copyfiles -u 1 src/style/base.css lib/",
+    "postbuild": "yarn run copy-files",
+    "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build-storybook": "build-storybook -s public"
+    "storybook": "start-storybook -p 9009",
+    "build-storybook": "build-storybook"
   },
   "browserslist": {
     "production": [
@@ -42,8 +55,9 @@
     "@storybook/addon-knobs": "^5.3.14",
     "@storybook/addon-links": "^5.3.14",
     "@storybook/addons": "^5.3.14",
-    "@storybook/preset-create-react-app": "^1.5.2",
+    "@storybook/preset-create-react-app": "^2.0.0",
     "@storybook/react": "^5.3.14",
+    "copyfiles": "^2.2.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
