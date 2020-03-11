@@ -9,7 +9,7 @@ export default createUseStyles((theme: any) => ({
       props.color || theme.colorPrimary,
     padding: '15px 32px',
     transition: 'all 250ms',
-    '&:hover': {
+    '&:not([disabled])&:hover': {
       color: 'white',
       backgroundColor: (props: { color: string }) =>
         props.color || theme.colorPrimary
@@ -18,7 +18,8 @@ export default createUseStyles((theme: any) => ({
       outline: 'none'
     },
     '&[disabled]': {
-      opacity: 0.3
+      opacity: 0.3,
+      cursor: 'unset'
     }
   },
   label: {
